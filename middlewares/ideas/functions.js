@@ -3,27 +3,51 @@ const Idea = require('./model')
 const ideasFunctions = {
   //////////////////////////////////////////////////////////////////////////////
   // Get all ideas
-  getAllIdeas: async (req, res) => {},
+  getAllIdeas: (req, res) => {
+    res.send({
+      message: ''
+    })
+  },
 
   //////////////////////////////////////////////////////////////////////////////
   // Create new idea
-  createNewIdea: async (req, res) => {},
+  createNewIdea: async (req, res) => {
+    res.send({
+      message: ''
+    })
+  },
 
   //////////////////////////////////////////////////////////////////////////////
   // Delete all ideas
-  deleteAllIdeas: async (req, res) => {},
+  deleteAllIdeas: async (req, res) => {
+    res.send({
+      message: ''
+    })
+  },
 
   //////////////////////////////////////////////////////////////////////////////
   // Delete one idea by id
-  deleteOneIdeaById: async (req, res) => {},
+  deleteOneIdeaById: async (req, res) => {
+    res.send({
+      message: ''
+    })
+  },
 
   //////////////////////////////////////////////////////////////////////////////
   // Update one idea by id
-  updateOneIdeaById: async (req, res) => {},
+  updateOneIdeaById: async (req, res) => {
+    res.send({
+      message: ''
+    })
+  },
 
   //////////////////////////////////////////////////////////////////////////////
   // Seed ideas. Only when users already exist
-  seedIdeas: async (req, res) => {}
+  seedIdeas: async (req, res) => {
+    res.send({
+      message: ''
+    })
+  }
 }
 
 module.exports = ideasFunctions

@@ -2,17 +2,17 @@
 
 ## Users
 
-| Endpoint     | Method | Description           | isAuthenticated | isAdmin |
-| ------------ | ------ | --------------------- | --------------- | ------- |
-| `/`          | GET    | Hello                 |                 |         |
-| `/register`  | POST   | Register new user     |                 |         |
-| `/login`     | POST   | Login to user         |                 |         |
-| `/profile`   | GET    | Get user profile      | YES             |         |
-| `/users/:id` | GET    | Get one user by id    |                 |         |
-| `/users`     | GET    | Get all users         |                 |         |
-| `/users`     | DELETE | Delete all users      |                 | YES     |
-| `/users/:id` | DELETE | Delete one user by id | YES             |         |
-| `/users/:id` | PUT    | Update one user by id |                 |         |
+| Endpoint          | Method | Description           | isAuthenticated | isAdmin |
+| ----------------- | ------ | --------------------- | --------------- | ------- |
+| `/`               | GET    | Hello                 |                 |         |
+| `/users/register` | POST   | Register new user     |                 |         |
+| `/users/login`    | POST   | Login to user         |                 |         |
+| `/users/profile`  | GET    | Get user profile      | YES             |         |
+| `/users/:id`      | GET    | Get one user by id    |                 |         |
+| `/users`          | GET    | Get all users         |                 |         |
+| `/users`          | DELETE | Delete all users      |                 | YES     |
+| `/users/:id`      | DELETE | Delete one user by id | YES             |         |
+| `/users/:id`      | PUT    | Update one user by id |                 |         |
 
 Example Data:
 

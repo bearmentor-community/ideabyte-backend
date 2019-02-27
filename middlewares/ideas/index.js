@@ -5,18 +5,18 @@ const ideas = require('./functions')
 
 // (GET) Get all ideas
 // (GET) Search for ideas via query
-router.get('/ideas', ideas.getAllIdeas)
+router.get('/', ideas.getAllIdeas)
 
 // (POST) Create new idea
-router.post('/ideas', ideas.createNewIdea)
+router.post('/', ideas.createNewIdea)
 
 // (DELETE) Delete all ideas
-router.delete('/ideas', ideas.deleteAllIdeas)
+router.delete('/', ideas.deleteAllIdeas)
 
 // (DELETE) Delete one idea by id
-router.delete('/ideas/:id', ideas.deleteOneIdeaById)
+router.delete('/:id', ideas.deleteOneIdeaById)
 
 // (PUT) Update one idea by id
-router.put('/ideas/:id', ideas.updateOneIdeaById)
+router.put('/:id', ideas.updateOneIdeaById)
 
 module.exports = router

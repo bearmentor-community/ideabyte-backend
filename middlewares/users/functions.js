@@ -69,10 +69,13 @@ const usersFunctions = {
   // GET PROFILE BY AUTHENTICATED/AUTHORIZED USER
   // You have to put the token (such as: )
   getProfile: async (req, res) => {
+    console.log('GET_PROFILE')
+
     // get token in request headers
     const token = req.headers.authorization.split(' ')[1]
     // the token will be saved somewhere in the frontend
-    // for example, you can save this token in Redux store/state
+    // in testing, you can save it in Postman configuration
+    // in frontend app, you can save it in Redux store/state
 
     // get the decodedUser object after the Authorization token is verified
     const decodedUser = await helpers.verifyToken(token)
@@ -90,6 +93,10 @@ const usersFunctions = {
         token: token,
         decodedUser: decodedUser,
         foundUser: foundUser
+      })
+    } else {
+      res.send({
+        message: 'Token is invalid'
       })
     }
   },

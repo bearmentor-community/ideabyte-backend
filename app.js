@@ -18,11 +18,11 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 const indexMiddleware = require('./middlewares')
 const usersMiddleware = require('./middlewares/users')
-const ideasMiddleware = require('./middlewares/ideas/functions')
+const ideasMiddleware = require('./middlewares/ideas')
 
 app.use('/', indexMiddleware)
-// app.use('/users', usersMiddleware)
-// app.use('/ideas', ideasMiddleware)
+app.use('/users', usersMiddleware)
+app.use('/ideas', ideasMiddleware)
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -39,7 +39,9 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500)
-  res.render('error')
+  res.send({
+    error: err
+  })
 })
 
 module.exports = app

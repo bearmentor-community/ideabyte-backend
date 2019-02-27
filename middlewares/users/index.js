@@ -16,15 +16,15 @@ router.get('/profile', users.getProfile)
 router.get('/profile/:id', users.getOneUserById)
 
 // (GET) Get all users
-router.get('/users', users.getAllUsers)
+router.get('/', users.getAllUsers)
 
 // (DELETE) Delete all users
-router.delete('/users', users.deleteAllUsers)
+router.delete('/', users.deleteAllUsers)
 
 // (DELETE) Delete one user by id
-router.delete('/users/:id', users.deleteOneUserById)
+router.delete('/:id', users.deleteOneUserById)
 
 // (PUT) Update one user by id
-router.put('/users/:id', users.updateOneUserById)
+router.put('/:id', users.updateOneUserById)
 
 module.exports = router
