@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-const index = require('./functions')
+const index = require('./controllers')
 
 // GET /
 router.get('/', index.getHello)

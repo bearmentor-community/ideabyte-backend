@@ -1,14 +1,15 @@
 const express = require('express')
 const router = express.Router()
 
-const ideas = require('./functions')
+const ideas = require('./controllers')
+const auth = require('../auth/controllers')
 
 // (GET) Get all ideas
 // (GET) Search for ideas via query
 router.get('/', ideas.getAllIdeas)
 
 // (POST) Create new idea
-router.post('/', ideas.createNewIdea)
+router.post('/', auth.getToken, ideas.createNewIdea)
 
 // (DELETE) Delete all ideas
 router.delete('/', ideas.deleteAllIdeas)

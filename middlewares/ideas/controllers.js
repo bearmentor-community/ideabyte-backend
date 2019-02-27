@@ -1,4 +1,5 @@
 const Idea = require('./model')
+const helpers = require('../../helpers')
 
 const ideasFunctions = {
   //////////////////////////////////////////////////////////////////////////////

@@ -1,8 +1,8 @@
 const express = require('express')
 const router = express.Router()
 
-const users = require('./functions')
-const auth = require('../auth/functions')
+const users = require('./controllers')
+const auth = require('../auth/controllers')
 
 // (POST) Register new user
 router.post('/register', users.register)
