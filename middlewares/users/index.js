@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 
 const users = require('./functions')
+const auth = require('../auth/functions')
 
 // (POST) Register new user
 router.post('/register', users.register)
@@ -10,7 +11,7 @@ router.post('/register', users.register)
 router.post('/login', users.login)
 
 // (GET) Get user profile
-router.get('/profile', users.getProfile)
+router.get('/profile', auth.getToken, users.getProfile)
 
 // (GET) Get one user by id
 router.get('/profile/:id', users.getOneUserById)

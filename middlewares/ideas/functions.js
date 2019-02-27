@@ -12,8 +12,12 @@ const ideasFunctions = {
   //////////////////////////////////////////////////////////////////////////////
   // Create new idea
   createNewIdea: async (req, res) => {
+    // verifying a token is a slow process
+    const decodedToken = await helpers.verifyToken(req.token)
+
     // creating an object is a fast process
     const newIdea = {
+      author: decodedToken.name,
       title: req.body.title,
       description: req.body.description,
       location: req.body.location,

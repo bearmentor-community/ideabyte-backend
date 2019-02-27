@@ -2,11 +2,12 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
 module.exports = {
+  //////////////////////////////////////////////////////////////////////////////
   // ENCRYPT PASSWORD, RETURN SALT & ENCRYPTED PASSWORD
   encryptPassword: async plainPassword => {
     // generate salt
     const salt = await bcrypt.genSalt(10)
-    // hash the plain password with generated salt
+    // encrypt/hash the plain password with generated salt
     // with becrypt, we have to use the salt
     const encryptedPassword = await bcrypt.hash(plainPassword, salt)
 
@@ -20,20 +21,24 @@ module.exports = {
     }
   },
 
+  //////////////////////////////////////////////////////////////////////////////
   // COMPARE ENCRYPTED PASSWORD WITH PLAIN PASSWORD
-  comparePassword: async (password, hash) => {
+  comparePassword: async (password, encryptedPassword) => {
     // slow process to determine password is matched
-    // result is either true or false
-    const authenticated = await bcrypt.compare(password, hash)
+    const isAuthenticated = await bcrypt.compare(password, encryptedPassword)
 
-    return authenticated
+    // result is either true or false
+    return isAuthenticated
   },
 
+  //////////////////////////////////////////////////////////////////////////////
   // CREATE A NEW TOKEN WITH PAYLOAD sub: _id
   createToken: async foundUser => {
     // create the payload WITHOUT having the salt & password
     const payload = {
-      sub: foundUser._id
+      sub: foundUser._id, // sub: subject: user's id
+      name: foundUser.name // name: user's full name
+      // iat: issued at: will be created automatically as UNIX timestamp
     }
 
     // create the token using jwt.sign()
@@ -43,20 +48,21 @@ module.exports = {
     return token
   },
 
+  //////////////////////////////////////////////////////////////////////////////
   // VERIFY TOKEN
   verifyToken: async token => {
     // use try catch to prevent app crashing
     try {
       // verify token with the same secret from backend
-      const decoded = await jwt.verify(token, process.env.SECRET)
+      const decodedToken = await jwt.verify(token, process.env.SECRET)
       // decoded token example:
       // { sub: '5c6fd1eb739522a11e19923e', iat: 1550834260 }
 
-      // return decoded object is fine
-      return decoded
+      // return decoded token object is fine
+      return decodedToken
     } catch (error) {
       // catch the error if it's happen
-      // such as when the token is invalid or decoded is false
+      // such as when the token is invalid or decodedToken is false
       return error
     }
   }
