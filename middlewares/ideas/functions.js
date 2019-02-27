@@ -12,8 +12,23 @@ const ideasFunctions = {
   //////////////////////////////////////////////////////////////////////////////
   // Create new idea
   createNewIdea: async (req, res) => {
+    // creating an object is a fast process
+    const newIdea = {
+      title: req.body.title,
+      description: req.body.description,
+      location: req.body.location,
+      images: req.body.images,
+      details: req.body.details
+    }
+
+    // creating in the database is a slow process
+    const result = await Idea.create(newIdea)
+
+    // responding is a fast process
     res.send({
-      message: ''
+      message: 'New idea is created',
+      newIdea: newIdea,
+      result: result
     })
   },
 

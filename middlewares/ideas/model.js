@@ -21,13 +21,16 @@ const IdeaSchema = mongoose.Schema({
       type: String
     }
   ],
-  detail: String
+  details: String
 })
 
 // plug the AutoIncrement plugin into the schema to create auto incremented id
 // id is different with _id
 // inc_field is to track which id to increment
-IdeaSchema.plugin(AutoIncrement, { inc_field: 'ideas_id' })
+IdeaSchema.plugin(AutoIncrement, {
+  id: 'ideas_counter',
+  inc_field: 'id'
+})
 
 // Idea model => ideas collection
 const Idea = mongoose.model('Idea', IdeaSchema)

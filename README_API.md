@@ -23,7 +23,8 @@ Example Data:
   "name": "Joen Doe",
   "email": "joendoe@example.com",
   "salt": "zyxwvutsrqp",
-  "password": "zyxwvutsrqpabcdefghijklmnopqrstuvwxyz"
+  "password": "zyxwvutsrqpabcdefghijklmnopqrstuvwxyz",
+  "__v": 0
 }
 ```
 
@@ -55,6 +56,6 @@ Example Data:
     "/assets/images/picture.jpg",
     "/assets/images/picture.jpg"
   ],
-  "detail": "<p>Details here</p>"
+  "details": "<p>Details here</p>"
 }
 ```
