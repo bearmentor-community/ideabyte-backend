@@ -2,15 +2,27 @@ const Idea = require('./model')
 
 const ideasFunctions = {
   //////////////////////////////////////////////////////////////////////////////
-  // Get all ideas
-  getAllIdeas: (req, res) => {
-    res.send({
-      message: ''
-    })
+  // GET ALL IDEAS
+  getAllIdeas: async (req, res) => {
+    // Search for ideas if query is detected
+    if (req.query.q) {
+      const keyword = req.query.q
+      res.send({
+        message: 'Search for ideas with keyword',
+        keyword: keyword,
+        data: await Idea.find({})
+      })
+    } else {
+      // Otherwise just send all the ideas
+      res.send({
+        message: 'Get all ideas',
+        data: await Idea.find({})
+      })
+    }
   },
 
   //////////////////////////////////////////////////////////////////////////////
-  // Create new idea
+  // CREATE NEW IDEA
   createNewIdea: async (req, res) => {
     // verifying a token is a slow process
     const decodedToken = await helpers.verifyToken(req.token)
@@ -37,34 +49,38 @@ const ideasFunctions = {
   },
 
   //////////////////////////////////////////////////////////////////////////////
-  // Delete all ideas
+  // DELETE ALL IDEAS
   deleteAllIdeas: async (req, res) => {
     res.send({
-      message: ''
+      message: 'Delete all ideas',
+      isEnabled: false
     })
   },
 
   //////////////////////////////////////////////////////////////////////////////
-  // Delete one idea by id
+  // DELETE ONE IDEA BY ID
   deleteOneIdeaById: async (req, res) => {
     res.send({
-      message: ''
+      message: 'Delete one idea by id',
+      isEnabled: false
     })
   },
 
   //////////////////////////////////////////////////////////////////////////////
-  // Update one idea by id
+  // UPDATE ONE IDEA BY ID
   updateOneIdeaById: async (req, res) => {
     res.send({
-      message: ''
+      message: 'Update one idea by id',
+      isEnabled: false
     })
   },
 
   //////////////////////////////////////////////////////////////////////////////
-  // Seed ideas. Only when users already exist
+  // SEED IDEAS. ONLY WHEN USERS ALREADY EXIST
   seedIdeas: async (req, res) => {
     res.send({
-      message: ''
+      message: 'Seed dummy ideas',
+      isEnabled: false
     })
   }
 }

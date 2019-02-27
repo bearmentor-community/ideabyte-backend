@@ -14,7 +14,7 @@ router.post('/login', users.login)
 router.get('/profile', auth.getToken, users.getProfile)
 
 // (GET) Get one user by id
-router.get('/profile/:id', users.getOneUserById)
+router.get('/:id', users.getOneUserById)
 
 // (GET) Get all users
 router.get('/', users.getAllUsers)

@@ -107,19 +107,37 @@ const usersFunctions = {
 
   //////////////////////////////////////////////////////////////////////////////
   getOneUserById: async (req, res) => {
+    console.log(req.params)
+
     res.send({
-      message: ''
+      message: 'Get one user by id',
+      users: await User.findOne({ id: req.params.id }, { salt: 0, password: 0 })
     })
   },
 
   //////////////////////////////////////////////////////////////////////////////
-  deleteAllUsers: async (req, res) => {},
+  deleteAllUsers: async (req, res) => {
+    res.send({
+      message: 'Delete all users',
+      isEnabled: false
+    })
+  },
 
   //////////////////////////////////////////////////////////////////////////////
-  deleteOneUserById: async (req, res) => {},
+  deleteOneUserById: async (req, res) => {
+    res.send({
+      message: 'Delete one user by id',
+      isEnabled: false
+    })
+  },
 
   //////////////////////////////////////////////////////////////////////////////
-  updateOneUserById: async (req, res) => {},
+  updateOneUserById: async (req, res) => {
+    res.send({
+      message: 'Update one user by id',
+      isEnabled: false
+    })
+  },
 
   //////////////////////////////////////////////////////////////////////////////
   seedUsers: async (req, res) => {
@@ -148,7 +166,7 @@ const usersFunctions = {
     })
 
     res.send({
-      message: 'Seed users completed'
+      message: 'Seed dummy users completed'
     })
   }
 }
