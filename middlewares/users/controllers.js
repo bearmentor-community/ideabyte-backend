@@ -66,6 +66,13 @@ const usersFunctions = {
   },
 
   //////////////////////////////////////////////////////////////////////////////
+  logout: async (req, res) => {
+    res.send({
+      message: 'Logged out the user'
+    })
+  },
+
+  //////////////////////////////////////////////////////////////////////////////
   // GET PROFILE BY AUTHENTICATED/AUTHORIZED USER
   // You have to put the token (such as: )
   getProfile: async (req, res) => {

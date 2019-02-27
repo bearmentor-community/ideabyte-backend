@@ -10,6 +10,9 @@ router.post('/register', users.register)
 // (POST) Login to user
 router.post('/login', users.login)
 
+// (GET) Logout from user
+router.get('/logout', users.logout)
+
 // (GET) Get user profile
 router.get('/profile', auth.getToken, users.getProfile)
 
