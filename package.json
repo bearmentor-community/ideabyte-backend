@@ -1,0 +1,38 @@
+{
+  "name": "ideabyte-backend",
+  "version": "0.1.0",
+  "description": "Idea Byte Backend",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "dev": "nodemon index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ideabyte/ideabyte-backend.git"
+  },
+  "keywords": [
+    "ideabyte",
+    "backend"
+  ],
+  "author": "M Haidar Hanif",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ideabyte/ideabyte-backend/issues"
+  },
+  "homepage": "https://github.com/ideabyte/ideabyte-backend#readme",
+  "dependencies": {
+    "bcrypt": "3.0.4",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "dotenv": "6.2.0",
+    "express": "4.16.4",
+    "http-errors": "~1.6.2",
+    "jsonwebtoken": "8.5.0",
+    "mongodb": "3.1.13",
+    "mongoose-sequence": "5.0.1",
+    "mongoose": "5.4.16",
+    "morgan": "~1.9.0",
+    "nodemon": "1.18.10"
+  }
+}
