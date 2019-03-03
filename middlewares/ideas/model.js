@@ -4,10 +4,9 @@ const AutoIncrement = require('mongoose-sequence')(mongoose)
 
 // Idea schema
 const IdeaSchema = mongoose.Schema({
+  author: String,
   title: String,
   description: String,
-  date: Date,
-  author: String,
   date: Date,
   location: String,
   slug: String,

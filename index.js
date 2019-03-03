@@ -14,6 +14,11 @@ const http = require('http')
 
 const host = process.env.HOST || 'localhost'
 const port = normalizePort(process.env.PORT || '8000')
+const database =
+  process.env.MONGODB_URI ||
+  `${process.env.DB_URL}/${process.env.DB_NAME}` ||
+  `mongodb://localhost:27017/database_name`
+
 app.set('port', port)
 
 /**
@@ -85,5 +90,10 @@ function onListening() {
   const bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port
   debug('Listening on ' + bind)
 
-  console.log(`Backend API is listening on ${host}:${port}`)
+  console.log(`
+Idea Byte Backend
+- https://github.com/ideabyte/ideabyte-backend
+- REST API is listening on ${host}:${port}
+- Database is on ${database}
+`)
 }

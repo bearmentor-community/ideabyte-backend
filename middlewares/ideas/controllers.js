@@ -27,16 +27,21 @@ const ideasControllers = {
   createNewIdea: async (req, res) => {
     // verifying a token is a slow process
     const decodedToken = await helpers.verifyToken(req.token)
+    console.log(decodedToken)
 
     // creating an object is a fast process
     const newIdea = {
-      author: decodedToken.name,
+      author: decodedToken.sub,
       title: req.body.title,
       description: req.body.description,
+      date: req.body.date,
       location: req.body.location,
+      slug: req.body.slug,
       images: req.body.images,
       details: req.body.details
     }
+
+    console.log(newIdea)
 
     // creating in the database is a slow process
     const result = await Idea.create(newIdea)
