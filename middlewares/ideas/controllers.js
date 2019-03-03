@@ -11,26 +11,26 @@ const ideasControllers = {
       res.send({
         message: 'Search for ideas with keyword',
         keyword: keyword,
-        data: await Idea.find({})
+        items: await Idea.find({})
       })
     } else {
       // Otherwise just send all the ideas
       res.send({
         message: 'Get all ideas',
-        data: await Idea.find({})
+        items: await Idea.find({})
       })
     }
   },
 
   //////////////////////////////////////////////////////////////////////////////
-  // GET ONE IDEAS
+  // GET ONE IDEA
   getOneIdeaById: async (req, res) => {
     if (req.params.id) {
-      const id = req.params.id
+      const id = Number(req.params.id)
       res.send({
         message: 'Get one idea by id',
         id: id,
-        data: await Idea.findOne({ id: id })
+        item: await Idea.findOne({ id: id })
       })
     } else {
       // Otherwise just send all the ideas
