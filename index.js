@@ -12,6 +12,7 @@ const http = require('http')
  * Get port from environment and store in Express.
  */
 
+const host = process.env.HOST || 'localhost'
 const port = normalizePort(process.env.PORT || '8000')
 app.set('port', port)
 
@@ -25,9 +26,7 @@ const server = http.createServer(app)
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port, () => {
-  console.log(`Backend API is listening on localhost:${port}`)
-})
+server.listen(port)
 server.on('error', onError)
 server.on('listening', onListening)
 
@@ -85,4 +84,6 @@ function onListening() {
   const addr = server.address()
   const bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port
   debug('Listening on ' + bind)
+
+  console.log(`Backend API is listening on ${host}:${port}`)
 }

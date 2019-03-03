@@ -1,11 +1,6 @@
 require('dotenv').config()
-const mongoose = require('mongoose')
+const mongoose = require('../../config/mongoose')
 const AutoIncrement = require('mongoose-sequence')(mongoose)
-
-mongoose.set('useCreateIndex', true)
-mongoose.connect(`${process.env.DB_URL}/${process.env.DB_NAME}`, {
-  useNewUrlParser: true
-})
 
 // User schema
 const UserSchema = mongoose.Schema({
