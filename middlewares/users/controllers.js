@@ -1,7 +1,7 @@
 const User = require('./model')
 const helpers = require('../../helpers')
 
-const usersFunctions = {
+const usersControllers = {
   //////////////////////////////////////////////////////////////////////////////
   // REGISTER NEW USER
   register: async (req, res) => {
@@ -55,13 +55,11 @@ const usersFunctions = {
 
     res.send({
       message: 'Login with registered user',
-      user: user,
-      foundUser: {
+      token: token,
+      user: {
         name: foundUser.name,
         email: foundUser.email
-      },
-      authenticated: authenticated,
-      token: token
+      }
     })
   },
 
@@ -114,8 +112,6 @@ const usersFunctions = {
 
   //////////////////////////////////////////////////////////////////////////////
   getOneUserById: async (req, res) => {
-    console.log(req.params)
-
     res.send({
       message: 'Get one user by id',
       users: await User.findOne({ id: req.params.id }, { salt: 0, password: 0 })
@@ -178,4 +174,4 @@ const usersFunctions = {
   }
 }
 
-module.exports = usersFunctions
+module.exports = usersControllers

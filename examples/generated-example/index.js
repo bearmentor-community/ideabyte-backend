@@ -12,6 +12,7 @@ const http = require('http')
  * Get port from environment and store in Express.
  */
 
+const host = process.env.HOST || 'localhost'
 const port = normalizePort(process.env.PORT || '8000')
 app.set('port', port)
 
@@ -26,7 +27,7 @@ const server = http.createServer(app)
  */
 
 server.listen(port, () => {
-  console.log(`Backend API is listening on localhost:${port}`)
+  console.log(`Idea Byte Backend REST API is listening on ${host}:${port}`)
 })
 server.on('error', onError)
 server.on('listening', onListening)

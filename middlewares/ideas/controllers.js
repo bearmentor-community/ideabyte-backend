@@ -1,7 +1,7 @@
 const Idea = require('./model')
 const helpers = require('../../helpers')
 
-const ideasFunctions = {
+const ideasControllers = {
   //////////////////////////////////////////////////////////////////////////////
   // GET ALL IDEAS
   getAllIdeas: async (req, res) => {
@@ -86,4 +86,4 @@ const ideasFunctions = {
   }
 }
 
-module.exports = ideasFunctions
+module.exports = ideasControllers

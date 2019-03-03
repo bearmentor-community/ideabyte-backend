@@ -1,6 +1,6 @@
 const helpers = require('../../helpers')
 
-const authFunctions = {
+const authControllers = {
   //////////////////////////////////////////////////////////////////////////////
   // GET TOKEN
   getToken: async (req, res, next) => {
@@ -28,4 +28,4 @@ const authFunctions = {
   }
 }
 
-module.exports = authFunctions
+module.exports = authControllers
