@@ -23,11 +23,28 @@ const ideasControllers = {
   },
 
   //////////////////////////////////////////////////////////////////////////////
+  // GET ONE IDEAS
+  getOneIdeaById: async (req, res) => {
+    if (req.params.id) {
+      const id = req.params.id
+      res.send({
+        message: 'Get one idea by id',
+        id: id,
+        data: await Idea.findOne({ id: id })
+      })
+    } else {
+      // Otherwise just send all the ideas
+      res.send({
+        message: 'I have no any idea'
+      })
+    }
+  },
+
+  //////////////////////////////////////////////////////////////////////////////
   // CREATE NEW IDEA
   createNewIdea: async (req, res) => {
     // verifying a token is a slow process
     const decodedToken = await helpers.verifyToken(req.token)
-    console.log(decodedToken)
 
     // creating an object is a fast process
     const newIdea = {
@@ -40,8 +57,6 @@ const ideasControllers = {
       images: req.body.images,
       details: req.body.details
     }
-
-    console.log(newIdea)
 
     // creating in the database is a slow process
     const result = await Idea.create(newIdea)

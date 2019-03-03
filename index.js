@@ -90,7 +90,7 @@ function onListening() {
   const bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port
   debug('Listening on ' + bind)
 
-  console.log(`
+  console.info(`
 Idea Byte Backend
 - https://github.com/ideabyte/ideabyte-backend
 - REST API is listening on ${host}:${port}

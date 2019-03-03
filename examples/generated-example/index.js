@@ -27,7 +27,7 @@ const server = http.createServer(app)
  */
 
 server.listen(port, () => {
-  console.log(`Idea Byte Backend REST API is listening on ${host}:${port}`)
+  console.info(`Backend REST API is listening on ${host}:${port}`)
 })
 server.on('error', onError)
 server.on('listening', onListening)

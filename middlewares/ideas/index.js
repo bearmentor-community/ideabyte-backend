@@ -8,6 +8,9 @@ const auth = require('../auth/controllers')
 // (GET) Search for ideas via query
 router.get('/', ideas.getAllIdeas)
 
+// (GET) Get one idea
+router.get('/:id', ideas.getOneIdeaById)
+
 // (POST) Create new idea
 router.post('/', auth.getToken, ideas.createNewIdea)
 
