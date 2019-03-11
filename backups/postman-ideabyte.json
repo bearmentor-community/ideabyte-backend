@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "b1839b75-64e5-4476-a5f5-103534969a85",
+		"_postman_id": "5369bf0f-06de-4969-8290-5a74971ee25e",
 		"name": "Idea Byte",
 		"description": "Idea Byte backend API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -10,20 +10,43 @@
 			"name": "Users",
 			"item": [
 				{
-					"name": "Register new user",
+					"name": "Register new user as admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "671c3f55-321f-4960-b31b-54e64395bd00",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": ""
+							"raw": "{\n\t\"name\": \"Administrator\",\n\t\"email\": \"admin@admin.com\",\n\t\"password\": \"admin\"\n}"
 						},
 						"url": {
-							"raw": "{{url}}/register",
+							"raw": "{{url}}/users/register",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
+								"users",
 								"register"
 							]
 						}
@@ -31,20 +54,131 @@
 					"response": []
 				},
 				{
-					"name": "Login to user",
+					"name": "Register new user as user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "671c3f55-321f-4960-b31b-54e64395bd00",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": ""
+							"raw": "{\n\t\"name\": \"User\",\n\t\"email\": \"user@user.com\",\n\t\"password\": \"user\"\n}"
 						},
 						"url": {
-							"raw": "{{url}}/login",
+							"raw": "{{url}}/users/register",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
+								"users",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register new user as haidar",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "671c3f55-321f-4960-b31b-54e64395bd00",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Haidar\",\n\t\"email\": \"haidar@haidar.com\",\n\t\"password\": \"haidar\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/users/register",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login to user as admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b81e5596-4014-408e-a5ef-b41e94cb0301",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"admin@ideabyte.com\",\n\t\"password\": \"adminpassword\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/users/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
 								"login"
 							]
 						}
@@ -52,7 +186,66 @@
 					"response": []
 				},
 				{
-					"name": "Get user profile (auth)",
+					"name": "Login to user as user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b81e5596-4014-408e-a5ef-b41e94cb0301",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"userupdated@user.com\",\n\t\"password\": \"user\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/users/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout the user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b81e5596-4014-408e-a5ef-b41e94cb0301",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -71,34 +264,13 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{url}}/profile",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"profile"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get one user",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{url}}/users/1",
+							"raw": "{{url}}/users/logout",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"users",
-								"1"
+								"logout"
 							]
 						}
 					},
@@ -106,6 +278,21 @@
 				},
 				{
 					"name": "Get all users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ddcaf294-e575-476a-857d-73a8d0fd1fad",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -126,7 +313,106 @@
 					"response": []
 				},
 				{
+					"name": "Get one user by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1c7334a0-d7b2-47a9-bbc8-4b65c7a6577b",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/users/37",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"37"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get user profile (auth)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "220fce53-c214-4ef6-9f59-5774b6889781",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/users/profile",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Delete all users (admin)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "cdc6371f-bd8f-4c41-9b0e-062c95e55afe",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -157,7 +443,22 @@
 					"response": []
 				},
 				{
-					"name": "Delete one user (auth)",
+					"name": "Delete one user by id (auth)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e2705de3-1d2d-4654-bad1-72f3c39a8eed",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -176,13 +477,99 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{url}}/user/1",
+							"raw": "{{url}}/users/42",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
-								"user",
-								"1"
+								"users",
+								"42"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update one user by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "97c658d8-5c99-4ab4-a342-f1472a2b9e09",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"User Updated\",\n\t\"email\": \"userupdated@user.com\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/users/38",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"38"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Seed dummy users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/users/seed",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"seed"
 							]
 						}
 					},
@@ -195,6 +582,21 @@
 			"item": [
 				{
 					"name": "Get all ideas",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9ab3711d-4008-4c89-a8c2-12264d88145e",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -215,7 +617,59 @@
 					"response": []
 				},
 				{
+					"name": "Get one idea",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9ab3711d-4008-4c89-a8c2-12264d88145e",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/ideas/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"ideas",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Search for ideas",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "54cf4568-7baa-46ad-b712-0a772d1abe76",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -243,6 +697,21 @@
 				},
 				{
 					"name": "Create new idea (auth)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d0d46614-01ec-4d78-8140-805d43e0470f",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -255,10 +724,17 @@
 							]
 						},
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": ""
+							"raw": "{\n  \"title\": \"Tripvesto Trip Planner\",\n  \"description\": \"App to plan and gather your friends to travel. Let's join us!\",\n  \"location\": \"Jakarta, Indonesia\",\n  \"images\": [\n    \"/assets/images/picture.jpg\",\n    \"/assets/images/picture.jpg\",\n    \"/assets/images/picture.jpg\"\n  ],\n  \"detail\": \"<p>Details here</p>\"\n}"
 						},
 						"url": {
 							"raw": "{{url}}/ideas",
@@ -274,6 +750,21 @@
 				},
 				{
 					"name": "Delete all ideas (admin)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8d6813e2-688e-48db-9854-63ab33144b06",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -305,6 +796,21 @@
 				},
 				{
 					"name": "Delete one idea (auth)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7480a2ac-228b-4148-a01e-b4c4eada522e",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -337,6 +843,21 @@
 				},
 				{
 					"name": "Update one idea (auth)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7b91af4c-088f-4a8d-a58d-cec3dc3150b0",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -371,6 +892,21 @@
 		},
 		{
 			"name": "Hello",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "55cffee3-49bc-4870-bd4d-05e6e95b16f0",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -379,7 +915,10 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": ""
+					"raw": "{{url}}",
+					"host": [
+						"{{url}}"
+					]
 				}
 			},
 			"response": []
@@ -409,15 +948,9 @@
 	],
 	"variable": [
 		{
-			"id": "546352d5-1e09-4733-b521-fe4e4deec9c8",
+			"id": "133556af-1503-4d68-a6c8-b62b7ebb952c",
 			"key": "url",
 			"value": "http://localhost:8000",
-			"type": "string"
-		},
-		{
-			"id": "5bb3801b-d58a-4a48-8f99-41c959f8ccbe",
-			"key": "token",
-			"value": "abc",
 			"type": "string"
 		}
 	]
