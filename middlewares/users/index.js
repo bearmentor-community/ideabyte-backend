@@ -14,7 +14,7 @@ router.post('/login', users.login)
 router.get('/logout', users.logout)
 
 // (GET) Get user profile
-router.get('/profile', auth.getToken, users.getProfile)
+router.get('/profile', auth.isAuthenticated, users.getProfile)
 
 // (GET) Get one user by id
 router.get('/:id', users.getOneUserById)
