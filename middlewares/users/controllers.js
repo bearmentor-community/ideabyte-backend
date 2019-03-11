@@ -43,27 +43,35 @@ const usersControllers = {
       { email: user.email } // search for email
     )
 
-    // slow process to determine password is matched
-    // authenticated result is either true or false
-    const authenticated = await helpers.comparePassword(
-      user.password,
-      foundUser.password
-    )
+    // only continue if user is found
+    if (foundUser) {
+      // slow process to determine password is matched
+      // authenticated result is either true or false
+      const authenticated = await helpers.comparePassword(
+        user.password,
+        foundUser.password
+      )
 
-    // create token with JWT
-    const token = await helpers.createToken(foundUser)
+      // create token with JWT
+      const token = await helpers.createToken(foundUser)
 
-    res.send({
-      message: 'Login with registered user',
-      token: token,
-      user: {
-        name: foundUser.name,
-        email: foundUser.email
-      }
-    })
+      res.send({
+        message: 'Login with registered user',
+        token: token,
+        user: {
+          name: foundUser.name,
+          email: foundUser.email
+        }
+      })
+    } else {
+      res.send({
+        message: 'Login failed because user is not found'
+      })
+    }
   },
 
   //////////////////////////////////////////////////////////////////////////////
+  // LOGOUT WITH LOGGED IN USER
   logout: async (req, res) => {
     res.send({
       message: 'Logged out the user'
@@ -72,19 +80,19 @@ const usersControllers = {
 
   //////////////////////////////////////////////////////////////////////////////
   // GET PROFILE BY AUTHENTICATED/AUTHORIZED USER
-  // You have to put the token (such as: )
   getProfile: async (req, res) => {
-    // token is retrieved in previous request via auth.getToken function
+    // You have to put the token in Authorization: Bearer {token}
+
+    // token is retrieved in previous middleware via auth.isAuthenticated
     // check in middlewares/users/index.js when router.get('/profile')
     const token = req.token
-
-    // get the decodedUser object after the Authorization token is verified
-    const decodedUser = await helpers.verifyToken(token)
+    // get the decodedUser object as well
+    const decodedUser = req.decoded
 
     // check if the decodedUser.sub, the user _id, is exist
     // decodedUser.sub = '5c6fd1eb739522a11e19923e'
     if (decodedUser.sub) {
-      const foundUser = await User.findById(decodedUser.sub, {
+      const user = await User.findById(decodedUser.sub, {
         salt: 0,
         password: 0
       })
@@ -93,7 +101,8 @@ const usersControllers = {
         message: 'Get my profile',
         tokenIsExist: true,
         decodedUser: decodedUser,
-        foundUser: foundUser
+        userIsFound: Boolean(user),
+        user: user
       })
     } else {
       res.send({
@@ -103,69 +112,134 @@ const usersControllers = {
   },
 
   //////////////////////////////////////////////////////////////////////////////
+  // GET ALL USERS
   getAllUsers: async (req, res) => {
+    const users = await User.find({}, { salt: 0, password: 0 })
+
     res.send({
       message: 'Get all users',
-      users: await User.find({}, { salt: 0, password: 0 })
+      users: users
     })
   },
 
   //////////////////////////////////////////////////////////////////////////////
+  // GET ONE USER BY ID
   getOneUserById: async (req, res) => {
+    const user = await User.findOne(
+      { id: req.params.id },
+      { salt: 0, password: 0 }
+    )
+
     res.send({
       message: 'Get one user by id',
-      users: await User.findOne({ id: req.params.id }, { salt: 0, password: 0 })
+      user: user
     })
   },
 
   //////////////////////////////////////////////////////////////////////////////
+  // DELETE ALL USERS
   deleteAllUsers: async (req, res) => {
-    res.send({
-      message: 'Delete all users',
-      isEnabled: false
-    })
+    // only Administrator who can delete all users
+    if (req.decoded.name === 'Administrator') {
+      const result = await User.remove({})
+      res.send({
+        message: 'Delete all users',
+        result: result
+      })
+    } else {
+      res.send({
+        message: 'You are not authorized to delete all users'
+      })
+    }
   },
 
   //////////////////////////////////////////////////////////////////////////////
+  // DELETE ONE USER BY ID
   deleteOneUserById: async (req, res) => {
-    res.send({
-      message: 'Delete one user by id',
-      isEnabled: false
-    })
+    const userFound = await User.findOne({ id: Number(req.params.id) })
+
+    // the user has to be found first
+    if (userFound) {
+      const user = await User.findOneAndRemove(
+        { id: Number(req.params.id) },
+        { select: { salt: 0, password: 0 } } // prevent showing the secret
+      )
+
+      res.send({
+        message: 'Delete one user by id',
+        user: user
+      })
+    } else {
+      res.send({
+        message: 'User is not found'
+      })
+    }
   },
 
   //////////////////////////////////////////////////////////////////////////////
+  // UPDATE ONE USER BY ID
   updateOneUserById: async (req, res) => {
-    res.send({
-      message: 'Update one user by id',
-      isEnabled: false
-    })
+    const userFound = await User.findOne({ id: Number(req.params.id) })
+
+    // the user has to be found first
+    if (userFound) {
+      // create updatedUser from all the keys in request body
+      const updatedUser = { ...req.body }
+
+      const user = await User.findOneAndUpdate(
+        { id: Number(req.params.id) },
+        { $set: updatedUser }, // set with new data
+        {
+          new: true, // show the latest update
+          select: { salt: 0, password: 0 } // prevent showing the secret
+        }
+      )
+
+      res.send({
+        message: 'Update one user by id',
+        user: user
+      })
+    } else {
+      res.send({
+        message: 'User is not found'
+      })
+    }
   },
 
   //////////////////////////////////////////////////////////////////////////////
+  // SEED USERS
   seedUsers: async (req, res) => {
     const dummyUsersData = [
       {
         name: 'Alpha',
-        email: 'alpha@gmail.com',
-        password: 'password_alpha'
+        email: 'alpha@alpha.com',
+        password: 'alpha'
       },
       {
         name: 'Beta',
-        email: 'beta@gmail.com',
-        password: 'password_beta'
+        email: 'beta@beta.com',
+        password: 'beta'
       },
       {
         name: 'Gamma',
-        email: 'gamma@gmail.com',
-        password: 'password_gamma'
+        email: 'gamma@gamma.com',
+        password: 'gamma'
       }
     ]
 
     // do not use User.insertMany(dummyUsersData)
-    // because we have to encrypt the password
+    // because we have to encrypt the password as well
     await dummyUsersData.forEach(async userData => {
-      await usersMiddleware.register(userData)
+      const { salt, encryptedPassword } = await helpers.encryptPassword(
+        userData.password
+      )
+      const newUser = {
+        name: userData.name,
+        email: userData.email,
+        salt: salt,
+        password: encryptedPassword
+      }
+      await User.create(newUser)
     })
 
     res.send({
