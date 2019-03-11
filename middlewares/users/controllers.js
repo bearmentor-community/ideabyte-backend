@@ -24,8 +24,15 @@ const usersControllers = {
     // responding is a fast process
     res.send({
       message: 'Register',
-      newUser: newUser,
-      result: result
+      newUser: {
+        name: newUser.name,
+        email: newUser.email
+      },
+      result: {
+        ...result._doc,
+        salt: 'HIDDEN',
+        password: 'HIDDEN'
+      }
     })
   },
 

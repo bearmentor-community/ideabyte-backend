@@ -34,10 +34,7 @@ const authControllers = {
   //////////////////////////////////////////////////////////////////////////////
   // CHECK IF USER ALREADY EXIST
   isUserExist: async (req, res, next) => {
-    const user = await User.findOne(
-      { email: req.body.email },
-      { salt: 0, password: 0 }
-    )
+    const user = await User.findOne({ email: req.body.email })
 
     // if user does not exist, you can continue
     if (!user) {
