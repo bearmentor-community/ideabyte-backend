@@ -1,4 +1,6 @@
-# Idea Byte Backend with Node.js, Express, and MongoDB
+# Idea Byte Backend with Node.js, Express, MongoDB, Heroku
+
+The backend is live on <https://ideabyte.herokuapp.com>.
 
 ## Setup
 
