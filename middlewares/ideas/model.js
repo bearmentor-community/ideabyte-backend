@@ -8,9 +8,22 @@ const IdeaSchema = mongoose.Schema({
     type: Schema.Types.ObjectId,
     ref: 'User'
   },
-  title: String,
-  description: String,
-  datetime: Date,
+  title: {
+    type: String,
+    required: true,
+    minlength: 1,
+    index: true
+  },
+  description: {
+    type: String,
+    required: true,
+    minlength: 1,
+    index: true
+  },
+  datetime: {
+    type: Date,
+    required: true
+  },
   location: String,
   slug: String,
   images: [
@@ -18,8 +31,35 @@ const IdeaSchema = mongoose.Schema({
       type: String
     }
   ],
-  details: String
+  details: {
+    type: String,
+    required: true,
+    index: true
+  },
+  tags: [
+    {
+      type: String,
+      index: true
+    }
+  ]
 })
+
+IdeaSchema.index(
+  {
+    title: 'text',
+    description: 'text',
+    location: 'text',
+    details: 'text'
+  },
+  {
+    weights: {
+      title: 4,
+      description: 3,
+      details: 2,
+      location: 1
+    }
+  }
+)
 
 // plug the AutoIncrement plugin into the schema to create auto incremented id
 // id is different with _id
