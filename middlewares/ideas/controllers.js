@@ -105,8 +105,6 @@ const ideasControllers = {
 
     // drop existing collection if collection is already exist
     if (collection.length > 0) {
-      console.log('isCollectionExist')
-
       await Idea.collection.drop()
       await Counter.findOneAndUpdate(
         { id: 'ideas_counter' },
@@ -143,8 +141,6 @@ const ideasControllers = {
       // do not use User.insertMany(dummyUsersData)
       // because we have to encrypt the password as well
       await seedIdeasData.forEach(async newIdea => {
-        console.log(newIdea)
-
         await Idea.create(newIdea)
       })
 
