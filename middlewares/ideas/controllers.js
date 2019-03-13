@@ -7,19 +7,25 @@ const ideasControllers = {
   //////////////////////////////////////////////////////////////////////////////
   // GET ALL IDEAS
   getAllIdeas: async (req, res) => {
-    // Search for ideas if query is detected
+    res.send({
+      message: 'Get all ideas',
+      ideas: await Idea.find({}).populate('author', '-password -salt')
+    })
+  },
+
+  //////////////////////////////////////////////////////////////////////////////
+  // SEARCH IDEAS
+  searchIdeas: async (req, res) => {
     if (req.query.q) {
       const keyword = req.query.q
       res.send({
         message: 'Search for ideas with keyword',
         keyword: keyword,
-        items: await Idea.find({})
+        items: await Idea.find({}).populate('author', '-password -salt')
       })
     } else {
-      // Otherwise just send all the ideas
       res.send({
-        message: 'Get all ideas',
-        items: await Idea.find({})
+        message: 'Search requires a query!'
       })
     }
   },
