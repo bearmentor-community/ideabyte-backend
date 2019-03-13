@@ -1,10 +1,10 @@
-require('dotenv').config()
 const mongoose = require('../../config/mongoose')
 const AutoIncrement = require('mongoose-sequence')(mongoose)
 
 // User schema
 const UserSchema = mongoose.Schema({
   name: String,
+  username: String,
   email: String,
   salt: String,
   password: String

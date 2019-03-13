@@ -1,4 +1,6 @@
 const User = require('./model')
+const Counter = require('../counters/model')
+
 const helpers = require('../../helpers')
 
 const usersControllers = {
@@ -214,44 +216,96 @@ const usersControllers = {
   },
 
   //////////////////////////////////////////////////////////////////////////////
-  // SEED USERS
-  seedUsers: async (req, res) => {
-    const dummyUsersData = [
-      {
-        name: 'Alpha',
-        email: 'alpha@alpha.com',
-        password: 'alpha'
-      },
-      {
-        name: 'Beta',
-        email: 'beta@beta.com',
-        password: 'beta'
-      },
-      {
-        name: 'Gamma',
-        email: 'gamma@gamma.com',
-        password: 'gamma'
-      }
-    ]
+  // SEED ADMIN USER
+  seedAdminUser: async (req, res, next) => {
+    const isCollectionExist = await User.findOne({ username: 'admin' })
 
-    // do not use User.insertMany(dummyUsersData)
-    // because we have to encrypt the password as well
-    await dummyUsersData.forEach(async userData => {
+    // drop existing collection if collection is already exist
+    if (isCollectionExist) {
+      await User.collection.drop()
+      await Counter.findOneAndUpdate(
+        { id: 'users_counter' },
+        { $set: { seq: 0 } }
+      )
+    }
+
+    // continue to seed
+    if (req.key === 'PLEASE_SEED_USERS' && !isCollectionExist) {
+      const admin = {
+        name: 'Administrator',
+        username: 'admin',
+        email: 'admin@admin.com',
+        password: 'admin'
+      }
+
       const { salt, encryptedPassword } = await helpers.encryptPassword(
-        userData.password
+        admin.password
       )
       const newUser = {
-        name: userData.name,
-        email: userData.email,
+        name: admin.name,
+        username: admin.username,
+        email: admin.email,
         salt: salt,
         password: encryptedPassword
       }
       await User.create(newUser)
-    })
 
-    res.send({
-      message: 'Seed dummy users completed'
-    })
+      next()
+    } else {
+      res.status(401).send({
+        message: 'You are not allowed/authorized to seed users!'
+      })
+    }
+  },
+
+  //////////////////////////////////////////////////////////////////////////////
+  // SEED USERS
+  seedUsers: async (req, res) => {
+    if (req.key === 'PLEASE_SEED_USERS') {
+      const seedUsersData = [
+        {
+          name: 'Alpha',
+          username: 'alpha',
+          email: 'alpha@alpha.com',
+          password: 'alpha'
+        },
+        {
+          name: 'Beta',
+          username: 'beta',
+          email: 'beta@beta.com',
+          password: 'beta'
+        },
+        {
+          name: 'Gamma',
+          username: 'gamma',
+          email: 'gamma@gamma.com',
+          password: 'gamma'
+        }
+      ]
+
+      // do not use User.insertMany(dummyUsersData)
+      // because we have to encrypt the password as well
+      await seedUsersData.forEach(async userData => {
+        const { salt, encryptedPassword } = await helpers.encryptPassword(
+          userData.password
+        )
+        const newUser = {
+          name: userData.name,
+          email: userData.email,
+          salt: salt,
+          password: encryptedPassword
+        }
+        await User.create(newUser)
+      })
+
+      res.status(200).send({
+        message: 'Seed dummy users completed'
+      })
+    } else {
+      res.status(401).send({
+        message: 'You are not allowed/authorized to seed users!'
+      })
+    }
   }
 }
 

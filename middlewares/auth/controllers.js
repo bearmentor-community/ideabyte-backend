@@ -44,6 +44,21 @@ const authControllers = {
         message: 'User is already exist with that email!'
       })
     }
+  },
+
+  //////////////////////////////////////////////////////////////////////////////
+  // CHECK IF HAS X-API-KEY
+  hasAPIKey: async (req, res, next) => {
+    req.key = req.headers['x-api-key']
+
+    // if user does not exist, you can continue
+    if (req.key) {
+      next()
+    } else {
+      res.send({
+        message: 'You do not have the key!'
+      })
+    }
   }
 }
 
