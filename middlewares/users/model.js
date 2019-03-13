@@ -2,13 +2,16 @@ const mongoose = require('../../config/mongoose')
 const AutoIncrement = require('mongoose-sequence')(mongoose)
 
 // User schema
-const UserSchema = mongoose.Schema({
-  name: String,
-  username: String,
-  email: String,
-  salt: String,
-  password: String
-})
+const UserSchema = mongoose.Schema(
+  {
+    name: String,
+    username: String,
+    email: String,
+    salt: String,
+    password: String
+  },
+  { timestamps: true }
+)
 
 // plug the AutoIncrement plugin into the schema to create auto incremented id
 // id is different with _id

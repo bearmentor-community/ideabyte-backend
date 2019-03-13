@@ -3,46 +3,49 @@ const AutoIncrement = require('mongoose-sequence')(mongoose)
 const Schema = mongoose.Schema
 
 // Idea schema
-const IdeaSchema = mongoose.Schema({
-  author: {
-    type: Schema.Types.ObjectId,
-    ref: 'User'
-  },
-  title: {
-    type: String,
-    required: true,
-    minlength: 1,
-    index: true
-  },
-  description: {
-    type: String,
-    required: true,
-    minlength: 1,
-    index: true
-  },
-  datetime: {
-    type: Date,
-    required: true
-  },
-  location: String,
-  slug: String,
-  images: [
-    {
-      type: String
-    }
-  ],
-  details: {
-    type: String,
-    required: true,
-    index: true
-  },
-  tags: [
-    {
+const IdeaSchema = mongoose.Schema(
+  {
+    author: {
+      type: Schema.Types.ObjectId,
+      ref: 'User'
+    },
+    title: {
       type: String,
+      required: true,
+      minlength: 1,
       index: true
-    }
-  ]
-})
+    },
+    description: {
+      type: String,
+      required: true,
+      minlength: 1,
+      index: true
+    },
+    datetime: {
+      type: Date,
+      default: Date.now
+    },
+    location: String,
+    slug: String,
+    images: [
+      {
+        type: String
+      }
+    ],
+    details: {
+      type: String,
+      required: true,
+      index: true
+    },
+    tags: [
+      {
+        type: String,
+        index: true
+      }
+    ]
+  },
+  { timestamps: true }
+)
 
 IdeaSchema.index(
   {

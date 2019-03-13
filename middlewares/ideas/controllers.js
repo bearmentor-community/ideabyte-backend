@@ -70,15 +70,21 @@ const ideasControllers = {
   getOneIdeaById: async (req, res) => {
     if (req.params.id) {
       const id = Number(req.params.id)
+      const idea = await Idea.findOne({ id: id }).populate(
+        'author',
+        '-password -salt'
+      )
+
       res.send({
         message: 'Get one idea by id',
         id: id,
-        item: await Idea.findOne({ id: id })
+        idea: idea
       })
     } else {
       // Otherwise just send all the ideas
       res.send({
-        message: 'I have no any idea'
+        message: 'I have no any idea with that id ;)',
+        id: id
       })
     }
   },
