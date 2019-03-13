@@ -227,10 +227,11 @@ const usersControllers = {
         { id: 'users_counter' },
         { $set: { seq: 0 } }
       )
-    }
 
-    // continue to seed
-    if (req.key === 'PLEASE_SEED_USERS' && !isCollectionExist) {
+      res.status(200).send({
+        message: 'All users and its counter have been dropped'
+      })
+    } else if (req.key === 'PLEASE_SEED_USERS' && !isCollectionExist) {
       const admin = {
         name: 'Administrator',
         username: 'admin',

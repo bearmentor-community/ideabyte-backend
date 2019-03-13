@@ -112,10 +112,11 @@ const ideasControllers = {
         { id: 'ideas_counter' },
         { $set: { seq: 0 } }
       )
-    }
 
-    // continue to seed
-    if (req.key === 'PLEASE_SEED_IDEAS' && collection.length === 0) {
+      res.status(200).send({
+        message: 'All ideas and its counter have been dropped'
+      })
+    } else if (req.key === 'PLEASE_SEED_IDEAS' && collection.length === 0) {
       const seedIdeasData = [
         {
           author: req.decoded.sub,
