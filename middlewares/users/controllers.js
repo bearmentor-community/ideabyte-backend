@@ -101,10 +101,7 @@ const usersControllers = {
     // check if the decodedUser.sub, the user _id, is exist
     // decodedUser.sub = '5c6fd1eb739522a11e19923e'
     if (decodedUser.sub) {
-      const user = await User.findById(decodedUser.sub, {
-        salt: 0,
-        password: 0
-      })
+      const user = await User.findById(decodedUser.sub, '-password -salt')
 
       res.send({
         message: 'Get my profile',
@@ -123,7 +120,7 @@ const usersControllers = {
   //////////////////////////////////////////////////////////////////////////////
   // GET ALL USERS
   getAllUsers: async (req, res) => {
-    const users = await User.find({}, { salt: 0, password: 0 })
+    const users = await User.find({}, '-password -salt')
 
     res.send({
       message: 'Get all users',
@@ -134,10 +131,7 @@ const usersControllers = {
   //////////////////////////////////////////////////////////////////////////////
   // GET ONE USER BY ID
   getOneUserById: async (req, res) => {
-    const user = await User.findOne(
-      { id: req.params.id },
-      { salt: 0, password: 0 }
-    )
+    const user = await User.findOne({ id: req.params.id }, '-password -salt')
 
     res.send({
       message: 'Get one user by id',
@@ -171,7 +165,7 @@ const usersControllers = {
     if (userFound) {
       const user = await User.findOneAndRemove(
         { id: Number(req.params.id) },
-        { select: { salt: 0, password: 0 } } // prevent showing the secret
+        { select: '-password -salt' }
       )
 
       res.send({
@@ -200,7 +194,7 @@ const usersControllers = {
         { $set: updatedUser }, // set with new data
         {
           new: true, // show the latest update
-          select: { salt: 0, password: 0 } // prevent showing the secret
+          select: '-password -salt'
         }
       )
 
