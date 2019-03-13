@@ -1,4 +1,6 @@
 const Idea = require('./model')
+const Counter = require('../counters/model')
+
 const helpers = require('../../helpers')
 
 const ideasControllers = {
@@ -97,12 +99,62 @@ const ideasControllers = {
   },
 
   //////////////////////////////////////////////////////////////////////////////
-  // SEED IDEAS. ONLY WHEN USERS ALREADY EXIST
-  seedIdeas: async (req, res) => {
-    res.send({
-      message: 'Seed dummy ideas',
-      isEnabled: false
-    })
+  // SEED IDEAS ONLY WHEN AUTHENTICATED & AUTHORIZED
+  seedIdeas: async (req, res, next) => {
+    const collection = await Idea.find({})
+
+    // drop existing collection if collection is already exist
+    if (collection.length > 0) {
+      console.log('isCollectionExist')
+
+      await Idea.collection.drop()
+      await Counter.findOneAndUpdate(
+        { id: 'ideas_counter' },
+        { $set: { seq: 0 } }
+      )
+    }
+
+    // continue to seed
+    if (req.key === 'PLEASE_SEED_IDEAS' && collection.length === 0) {
+      const seedIdeasData = [
+        {
+          author: req.decoded.sub,
+          title: 'Super Strong Backpack',
+          description:
+            'A backpack that is super strong, accompanied with an app to track your belongings inside. Marvelous!',
+          datetime: '2019-01-01T12:30:45.000Z',
+          location: 'Jakarta, Indonesia',
+          images: ['/assets/images/picture.jpg', '/assets/images/picture.jpg'],
+          details: '<p>Details here. <b>Another thing</b>.</p>'
+        },
+        {
+          author: req.decoded.sub,
+          title: 'Tough Notebook Bag',
+          description:
+            'A durable bag to store your notebook, accompanied with an app to control your notebook via the bag. Modern!',
+          datetime: '2019-02-01T12:30:45.000Z',
+          location: 'Bandung, Indonesia',
+          images: ['/assets/images/picture.jpg', '/assets/images/picture.jpg'],
+          details: '<p>Details here. <b>Another thing</b>.</p>'
+        }
+      ]
+
+      // do not use User.insertMany(dummyUsersData)
+      // because we have to encrypt the password as well
+      await seedIdeasData.forEach(async newIdea => {
+        console.log(newIdea)
+
+        await Idea.create(newIdea)
+      })
+
+      res.status(200).send({
+        message: 'Seed initial ideas completed'
+      })
+    } else {
+      res.status(401).send({
+        message: 'You are not allowed/authorized to seed users!'
+      })
+    }
   }
 }
 

@@ -299,7 +299,7 @@ const usersControllers = {
       })
 
       res.status(200).send({
-        message: 'Seed dummy users completed'
+        message: 'Seed initial users completed'
       })
     } else {
       res.status(401).send({

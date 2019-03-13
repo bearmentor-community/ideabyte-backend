@@ -4,8 +4,8 @@ const router = express.Router()
 const ideas = require('./controllers')
 const auth = require('../auth/controllers')
 
-// (POST) Create new idea
-router.post('/seed', auth.isAuthenticated, auth.hasAPIKey, ideas.createNewIdea)
+// (POST) Seed initial ideas
+router.post('/seed', auth.isAuthenticated, auth.hasAPIKey, ideas.seedIdeas)
 
 // (GET) Get all ideas
 // (GET) Search for ideas via query

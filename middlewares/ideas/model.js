@@ -1,12 +1,16 @@
 const mongoose = require('../../config/mongoose')
 const AutoIncrement = require('mongoose-sequence')(mongoose)
+const Schema = mongoose.Schema
 
 // Idea schema
 const IdeaSchema = mongoose.Schema({
-  author: String,
+  author: {
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  },
   title: String,
   description: String,
-  date: Date,
+  datetime: Date,
   location: String,
   slug: String,
   images: [

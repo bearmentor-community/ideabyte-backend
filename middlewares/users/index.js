@@ -4,7 +4,7 @@ const router = express.Router()
 const users = require('./controllers')
 const auth = require('../auth/controllers')
 
-// (POST) Seed new users
+// (POST) Seed initial users
 router.post('/seed', auth.hasAPIKey, users.seedAdminUser, users.seedUsers)
 
 // (POST) Register new user
