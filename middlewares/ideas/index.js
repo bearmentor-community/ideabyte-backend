@@ -7,8 +7,10 @@ const auth = require('../auth/controllers')
 // (POST) Seed initial ideas
 router.post('/seed', auth.isAuthenticated, auth.hasAPIKey, ideas.seedIdeas)
 
+// (GET) Search for ideas via query ?q=keyword
+router.get('/search', ideas.searchIdeas)
+
 // (GET) Get all ideas
-// (GET) Search for ideas via query
 router.get('/', ideas.getAllIdeas)
 
 // (GET) Get one idea

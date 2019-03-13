@@ -14,18 +14,53 @@ const ideasControllers = {
   },
 
   //////////////////////////////////////////////////////////////////////////////
-  // SEARCH IDEAS
+  // SEARCH IDEAS WITH QUERY
   searchIdeas: async (req, res) => {
     if (req.query.q) {
+      // get the keyword from 'q' query
       const keyword = req.query.q
+
+      // find the ideas either exact match word OR regex match
+      const ideas = await Idea.find({
+        $or: [
+          {
+            $text: {
+              $search: keyword // by index
+            }
+          },
+          {
+            // or search for the title
+            title: {
+              $regex: keyword, // by regex
+              $options: 'i' // case insensitive
+            }
+          },
+          {
+            // or search for the description
+            description: {
+              $regex: keyword, // by regex
+              $options: 'i' // case insensitive
+            }
+          },
+          {
+            // or search for the details
+            details: {
+              $regex: keyword, // by regex
+              $options: 'i' // case insensitive
+            }
+          }
+        ]
+      }).populate('author', '-password -salt')
+
       res.send({
         message: 'Search for ideas with keyword',
         keyword: keyword,
-        items: await Idea.find({}).populate('author', '-password -salt')
+        ideas: ideas
       })
     } else {
       res.send({
-        message: 'Search requires a query!'
+        message: 'Search requires a query!',
+        format: '/ideas/search?q=keyword'
       })
     }
   },
