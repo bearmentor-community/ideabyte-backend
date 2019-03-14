@@ -3,7 +3,7 @@ const AutoIncrement = require('mongoose-sequence')(mongoose)
 const Schema = mongoose.Schema
 
 // Idea schema
-const IdeaSchema = mongoose.Schema(
+const IdeaSchema = Schema(
   {
     author: {
       type: Schema.Types.ObjectId,

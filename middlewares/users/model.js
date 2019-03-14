@@ -1,8 +1,9 @@
 const mongoose = require('../../config/mongoose')
 const AutoIncrement = require('mongoose-sequence')(mongoose)
+const Schema = mongoose.Schema
 
 // User schema
-const UserSchema = mongoose.Schema(
+const UserSchema = Schema(
   {
     name: String,
     username: String,
