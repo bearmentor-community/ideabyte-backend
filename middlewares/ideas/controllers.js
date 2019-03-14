@@ -1,4 +1,5 @@
 const Idea = require('./model')
+const User = require('../users/model')
 const Counter = require('../counters/model')
 
 const helpers = require('../../helpers')
@@ -108,13 +109,20 @@ const ideasControllers = {
     }
 
     // creating in the database is a slow process
-    const result = await Idea.create(newIdea)
+    const resultIdea = await Idea.create(newIdea)
+
+    const resultUser = await User.findOneAndUpdate(
+      { _id: decodedToken.sub },
+      { $push: { ideas: resultIdea._id } },
+      { new: true }
+    )
 
     // responding is a fast process
     res.send({
       message: 'New idea is created',
       newIdea: newIdea,
-      result: result
+      resultIdea: resultIdea,
+      resultUser: resultUser
     })
   },
 
