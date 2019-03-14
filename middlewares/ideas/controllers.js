@@ -171,7 +171,16 @@ const ideasControllers = {
           datetime: '2019-01-01T12:30:45.000Z',
           location: 'Jakarta, Indonesia',
           images: ['/assets/images/picture.jpg', '/assets/images/picture.jpg'],
-          details: '<p>Details here. <b>Another thing</b>.</p>'
+          details: `<p>A backpack that is super strong, accompanied with an app to track your belongings inside :D.</p>
+<p>Marvelous invention, <strong>indeed!</strong></p>
+<p>Features:</p>
+<ul>
+<li>Waterproof</li>
+<li>Weatherproof</li>
+<li>Shockproof</li>
+<li>Thiefproof</li>
+<li>Ageproof</li>
+</ul>`
         },
         {
           author: req.decoded.sub,
@@ -181,7 +190,13 @@ const ideasControllers = {
           datetime: '2019-02-01T12:30:45.000Z',
           location: 'Bandung, Indonesia',
           images: ['/assets/images/picture.jpg', '/assets/images/picture.jpg'],
-          details: '<p>Details here. <b>Another thing</b>.</p>'
+          details: `<p>A durable bag to store your notebook, accompanied with an app to control your notebook via the bag.</p>
+<p>Modern yet <em>trendy</em>!</p>
+<p>Features:</p>
+<ul>
+<li>Control your notebook remotely via app</li>
+<li>If your notebook is gone, it will fly return to you!</li>
+</ul>`
         }
       ]
 
