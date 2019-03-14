@@ -33,21 +33,6 @@ module.exports = [
 </ul>`
   },
   {
-    title: 'Tough Notebook Bag',
-    description:
-      'A durable bag to store your notebook, accompanied with an app to control your notebook via the bag. Modern!',
-    datetime: '2019-02-01T12:30:45.000Z',
-    location: 'Bandung, Indonesia',
-    images: ['/assets/images/picture.jpg', '/assets/images/picture.jpg'],
-    details: `<p>A durable bag to store your notebook, accompanied with an app to control your notebook via the bag.</p>
-<p>Modern yet <em>trendy</em>!</p>
-<p>Features:</p>
-<ul>
-<li>Control your notebook remotely via app</li>
-<li>If your notebook is gone, it will fly return to you!</li>
-</ul>`
-  },
-  {
     title: 'Master Ball',
     description: 'Capture any animal in the world, easily!',
     datetime: '2019-03-03T12:30:45.000Z',
