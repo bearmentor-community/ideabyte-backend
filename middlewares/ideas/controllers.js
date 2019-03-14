@@ -162,48 +162,16 @@ const ideasControllers = {
         message: 'All ideas and its counter have been dropped'
       })
     } else if (req.key === 'PLEASE_SEED_IDEAS' && collection.length === 0) {
-      const seedIdeasData = [
-        {
-          author: req.decoded.sub,
-          title: 'Super Strong Backpack',
-          description:
-            'A backpack that is super strong, accompanied with an app to track your belongings inside. Marvelous!',
-          datetime: '2019-01-01T12:30:45.000Z',
-          location: 'Jakarta, Indonesia',
-          images: ['/assets/images/picture.jpg', '/assets/images/picture.jpg'],
-          details: `<p>A backpack that is super strong, accompanied with an app to track your belongings inside :D.</p>
-<p>Marvelous invention, <strong>indeed!</strong></p>
-<p>Features:</p>
-<ul>
-<li>Waterproof</li>
-<li>Weatherproof</li>
-<li>Shockproof</li>
-<li>Thiefproof</li>
-<li>Ageproof</li>
-</ul>`
-        },
-        {
-          author: req.decoded.sub,
-          title: 'Tough Notebook Bag',
-          description:
-            'A durable bag to store your notebook, accompanied with an app to control your notebook via the bag. Modern!',
-          datetime: '2019-02-01T12:30:45.000Z',
-          location: 'Bandung, Indonesia',
-          images: ['/assets/images/picture.jpg', '/assets/images/picture.jpg'],
-          details: `<p>A durable bag to store your notebook, accompanied with an app to control your notebook via the bag.</p>
-<p>Modern yet <em>trendy</em>!</p>
-<p>Features:</p>
-<ul>
-<li>Control your notebook remotely via app</li>
-<li>If your notebook is gone, it will fly return to you!</li>
-</ul>`
-        }
-      ]
+      // get seed data from other file
+      const seedIdeasData = require('./seed')
 
       // do not use User.insertMany(dummyUsersData)
       // because we have to encrypt the password as well
       await seedIdeasData.forEach(async newIdea => {
-        await Idea.create(newIdea)
+        await Idea.create({
+          ...newIdea,
+          author: req.decoded.sub
+        })
       })
 
       res.status(200).send({
