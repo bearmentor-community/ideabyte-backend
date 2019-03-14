@@ -9,7 +9,12 @@ const UserSchema = mongoose.Schema(
     email: String,
     salt: String,
     password: String,
-    ideas: Array
+    ideas: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Idea'
+      }
+    ]
   },
   { timestamps: true }
 )

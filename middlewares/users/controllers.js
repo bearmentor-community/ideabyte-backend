@@ -131,7 +131,10 @@ const usersControllers = {
   //////////////////////////////////////////////////////////////////////////////
   // GET ONE USER BY ID
   getOneUserById: async (req, res) => {
-    const user = await User.findOne({ id: req.params.id }, '-password -salt')
+    const user = await User.findOne(
+      { id: req.params.id },
+      '-password -salt'
+    ).populate('ideas')
 
     res.send({
       message: 'Get one user by id',
